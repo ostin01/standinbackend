@@ -17,4 +17,4 @@ app.get("/", (req, res) => {
   res.send("Hello world");
 });
 
-app.use("/api/users", require("./routes/userRoutes"));
+app.use("/", require("./routes/userRoutes"));

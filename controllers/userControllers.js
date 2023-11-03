@@ -15,10 +15,10 @@ const generateToken = (id) => {
   });
 };
 
-const registerUser = async (req, res) => {
-  const { name, email, password } = req.body;
+const register = async (req, res) => {
+  const { first__name, last__name, email, password } = req.body;
   try {
-    if (!name || !email || !password) {
+    if (!first__name || !last__name || !email || !password) {
       res.status(400).json({ msg: "Please fill all fields" });
     }
 
@@ -31,7 +31,8 @@ const registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = await User.create({
-      name,
+      first__name,
+      last__name,
       email,
       password: hashedPassword,
     });
@@ -41,7 +42,8 @@ const registerUser = async (req, res) => {
     if (user) {
       res.status(201).json({
         _id: user.id,
-        name: user.name,
+        first__name: user.first__name,
+        last__name: user.last__name,
         email: user.email,
         token: generateToken(user._id),
       });
@@ -58,7 +60,7 @@ const registerUser = async (req, res) => {
 // @Route  POST api/users/login
 // @Access Public
 
-const loginUser = async (req, res) => {
+const login = async (req, res) => {
   const { email, password } = req.body;
   // check the email
   const user = await User.findOne({ email });
@@ -75,6 +77,6 @@ const loginUser = async (req, res) => {
   }
 };
 module.exports = {
-  registerUser,
-  loginUser,
+  register,
+  login,
 };

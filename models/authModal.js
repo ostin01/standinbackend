@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
-const userSchema = mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
-    name: {
+    first__name: {
+      type: String,
+      require: [true, "please add a name"],
+    },
+    last__name: {
       type: String,
       require: [true, "please add a name"],
     },
@@ -14,6 +18,16 @@ const userSchema = mongoose.Schema(
       type: String,
       require: [true, "please add a password"],
     },
+    profilePhoto: {
+      type: String,
+      require: true,
+      default: "",
+    },
+    address: {
+      type: Array,
+      require: false,
+    },
+    userType: { type: String, require: true, default: "client" },
   },
   {
     timestamps: true,
