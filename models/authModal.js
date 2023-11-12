@@ -27,7 +27,17 @@ const userSchema = new mongoose.Schema(
       type: Array,
       require: false,
     },
-    userType: { type: String, require: true, default: "client" },
+    userType: {
+      type: String,
+      require: true,
+      default: "client",
+      enum: ["client", "standin"],
+    },
+    uid: {
+      type: String, // Use the data type that matches your custom ID
+      required: true,
+      unique: true,
+    },
   },
   {
     timestamps: true,

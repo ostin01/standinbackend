@@ -5,6 +5,13 @@ const app = express();
 
 require("dotenv").config();
 
+const admin = require("firebase-admin");
+const serviceAccount = require("../standinbackend/serviceAccount.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
 connectDB();
 
 app.listen(process.env.PORT, () => {
@@ -17,4 +24,4 @@ app.get("/", (req, res) => {
   res.send("Hello world");
 });
 
-app.use("/", require("./routes/userRoutes"));
+app.use("/", require("./routes/authRoute"));
