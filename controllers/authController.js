@@ -1,5 +1,5 @@
 // @Desc  Register users
-// @Route POST api/users
+// @Route POST api/register
 // @Access Public
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -66,17 +66,14 @@ const register = async (req, res) => {
           }
         } catch (error) {
           // Handle error during user creation
-          console.error("Error creating user:", error);
           return res.status(500).json({ mssg: "Error creating user" });
         }
       } else {
         // Handle other errors during user retrieval
-        console.error("Error retrieving user:", error);
         return res.status(500).json({ mssg: "Error retrieving user" });
       }
     }
   } catch (error) {
-    console.log(error);
     // Handle any other errors if needed
     return res.status(500).json({ mssg: "Internal Server Error" });
   }
@@ -84,7 +81,7 @@ const register = async (req, res) => {
 
 // Login user
 // @Desc  Login users
-// @Route  POST api/users/login
+// @Route  POST api/login
 // @Access Public
 
 const login = async (req, res) => {
@@ -100,11 +97,9 @@ const login = async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res
-      .status(400)
-      .json({
-        mssg: "Invalid login parameters, please check email and password",
-      });
+    res.status(400).json({
+      mssg: "Invalid login parameters, please check email and password",
+    });
   }
 };
 module.exports = {
