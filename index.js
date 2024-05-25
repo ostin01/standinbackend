@@ -24,5 +24,5 @@ app.get("/", (req, res) => {
   res.send("Hello world");
 });
 
-app.use("/", require("./routes/authRoute"));
+app.use("/api/", require("./routes/authRoute"));
 app.use("/api/", require("./routes/userRoute"));
