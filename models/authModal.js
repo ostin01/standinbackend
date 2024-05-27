@@ -27,6 +27,11 @@ const userSchema = new mongoose.Schema(
       type: Array,
       require: false,
     },
+    slug: {
+      type: String,
+      require: true,
+      default: "",
+    },
     userType: {
       type: String,
       require: true,

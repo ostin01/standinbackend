@@ -38,6 +38,8 @@ const register = async (req, res) => {
           });
 
           // Hash the password
+          const userSlug = first__name + "-" + last__name;
+          const slug = userSlug.toLocaleLowerCase();
           const salt = await bcrypt.genSalt(10);
           const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -46,6 +48,7 @@ const register = async (req, res) => {
             first__name,
             last__name,
             email,
+            slug,
             uid: userResponse.uid,
             password: hashedPassword,
           });
@@ -58,6 +61,7 @@ const register = async (req, res) => {
               email: user.email,
               profilePhoto: user.profilePhoto,
               userType: user.userType,
+              slug: user.slug,
               uid: user.uid,
               token: generateToken(user._id),
             });
