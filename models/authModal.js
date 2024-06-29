@@ -30,7 +30,6 @@ const userSchema = new mongoose.Schema(
     slug: {
       type: String,
       require: true,
-      default: "",
     },
     userType: {
       type: String,
@@ -39,7 +38,7 @@ const userSchema = new mongoose.Schema(
       enum: ["client", "standin"],
     },
     uid: {
-      type: String, // Use the data type that matches your custom ID
+      type: String,
       required: true,
       unique: true,
     },

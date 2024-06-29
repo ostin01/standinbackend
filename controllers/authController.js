@@ -17,7 +17,8 @@ const generateToken = (id) => {
 };
 
 const register = async (req, res) => {
-  const { first__name, last__name, email, password } = req.body;
+  const { first__name, last__name, email, profilePhoto, userType, password } =
+    req.body;
   try {
     // check if all fields are filled
     if (!first__name || !last__name || !email || !password) {
@@ -38,8 +39,7 @@ const register = async (req, res) => {
           });
 
           // Hash the password
-          const userSlug = first__name + "-" + last__name;
-          const slug = userSlug.toLocaleLowerCase();
+          const userSlug = `${first__name}-${last__name}`.toLowerCase();
           const salt = await bcrypt.genSalt(10);
           const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -48,7 +48,9 @@ const register = async (req, res) => {
             first__name,
             last__name,
             email,
-            slug,
+            profilePhoto,
+            userType,
+            slug: userSlug,
             uid: userResponse.uid,
             password: hashedPassword,
           });
@@ -99,6 +101,7 @@ const login = async (req, res) => {
       name: user.name,
       email: user.email,
       token: generateToken(user._id),
+      slug: user.slug,
     });
   } else {
     res.status(400).json({
